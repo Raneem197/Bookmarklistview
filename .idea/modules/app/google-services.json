@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "262405935037",
+    "firebase_url": "https://bookmarklistview.firebaseio.com",
+    "project_id": "bookmarklistview",
+    "storage_bucket": "bookmarklistview.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:262405935037:android:0d9828d3f96192fa1d8cd4",
+        "android_client_info": {
+          "package_name": "com.raneem.bookmarklistview"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "262405935037-9b0eriu91125kiq3aucdoplm68m32l91.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.raneem.bookmarklistview",
+            "certificate_hash": "90a1c4a638c7d0dd9095a711230c439ac30eaac0"
+          }
+        },
+        {
+          "client_id": "262405935037-bf3vh47ibrpb70bvqu701uamcdg5p2dd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCuQfGejrG7JOXIJQVR6nAwPHzBYmMhkVU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "262405935037-bf3vh47ibrpb70bvqu701uamcdg5p2dd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
