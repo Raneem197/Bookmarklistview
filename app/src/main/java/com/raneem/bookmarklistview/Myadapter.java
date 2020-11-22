@@ -1,10 +1,13 @@
 package com.raneem.bookmarklistview;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,13 +25,14 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Myadapter extends BaseAdapter {  private Context context; //context
+public class Myadapter extends BaseAdapter {
+    private Context context; //context
     DatabaseReference mDatabase;
 
     FirebaseDatabase firebaseDatabase;
 
     List<Slides> list;
-    List<String> bookmarklist=new ArrayList<String>();
+    List<String> bookmarklist = new ArrayList<String>();
     final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     String sss;
 
@@ -37,12 +41,15 @@ public class Myadapter extends BaseAdapter {  private Context context; //context
 
         this.bookmarklist=bookmarklist;
     }*/
-    public Myadapter(Context context,  List<Slides> list) {
+    public Myadapter(Context context, List<Slides> list) {
         this.context = context;
         this.list = list;
 
 
     }
+    // public Myadapter(List<String>bookmarklist){
+    //   this.bookmarklist=bookmarklist;
+    //}
 
 
     @Override
@@ -62,24 +69,17 @@ public class Myadapter extends BaseAdapter {  private Context context; //context
     }
 
 
-
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         // inflate the layout for each list row
 
-        final String lectuer=list.get(position).getTitle();
-
-
-
-
-
-
-
+        final String lectuer = list.get(position).getTitle();
 
 
         if (convertView == null) {
             convertView = LayoutInflater.from(context).
-                    inflate(R.layout.customlist, parent, false); }
+                    inflate(R.layout.customlist, parent, false);
+        }
         // get current item to be displayed
         //PDFs ss = (PDFs) getItem(position);
 
@@ -87,57 +87,42 @@ public class Myadapter extends BaseAdapter {  private Context context; //context
         TextView textViewItemName = (TextView)
                 convertView.findViewById(R.id.titleview);
 
-     /*   Button bookmark_button=(Button)
-                convertView.findViewById(R.id.bookmark_button);*/
 
         final ImageView imageView = (ImageView)
                 convertView.findViewById(R.id.imgview12);
 
         textViewItemName.setText(list.get(position).getTitle());
         imageView.setImageResource(list.get(position).getImg());
-        if(list.get(position).isIsbooked()){
+        //this code
+        if (list.get(position).isIsbooked()) {
             imageView.setImageResource(R.drawable.bookmarkk);
 
 
-        }else {
+        } else {
             imageView.setImageResource(R.drawable.notbookkmark);
-
 
 
         }
 
-      //  textViewItemName.setText(list.get(position).getTitle());
+        //  textViewItemName.setText(list.get(position).getTitle());
 
-
+//this code
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view)
-            {
+            public void onClick(View view) {
+
                 if (list.get(position).isIsbooked()) {
                     list.get(position).setIsbooked(false);
-
-              if(position>=0) {
-         bookmarklist.remove(position);
-        notifyDataSetChanged();
-
-
-} else {
-    bookmarklist.remove(position-1);
-    notifyDataSetChanged();
-}
-
-
-                }else {
+                    bookmarklist.remove(list.get(position).getTitle());
+                    notifyDataSetChanged();
+                } else {
                     list.get(position).setIsbooked(true);
                     bookmarklist.add(list.get(position).getTitle());
                     notifyDataSetChanged();
-
-
-
                 }
 
-                  //  final String userID = user.getUid();
-                    //mDatabase.child("users").child(userID).child("booked").setValue(lectuer);
+                //  final String userID = user.getUid();
+                //mDatabase.child("users").child(userID).child("booked").setValue(lectuer);
               /* list.get(position).setIsbooked(true);
 
                 //if(list.get(position).isIsbooked()){
@@ -150,7 +135,7 @@ public class Myadapter extends BaseAdapter {  private Context context; //context
                 // }
 
 
-              //  bookmarklist.add(list.get(position).getTitle());
+                //  bookmarklist.add(list.get(position).getTitle());
 
 
                    /*mDatabase = FirebaseDatabase.getInstance().getReference("JavaOneSlides");
@@ -182,45 +167,39 @@ public class Myadapter extends BaseAdapter {  private Context context; //context
 
 
 */
+// this code
+                if (user != null) {
+                    final String userID = user.getUid();
 
-          if(user!=null){
-    final String userID = user.getUid();
+                    mDatabase = FirebaseDatabase.getInstance().getReference();
+                    mDatabase.child("users").child(userID).child("booked").setValue(bookmarklist);
+                   /* mDatabase.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
 
+                            Log.d("ImageView OnClick", "testing");
 
+                            // String lectuerid=dataSnapshot.getKey();
 
-                mDatabase = FirebaseDatabase.getInstance().getReference();
-                mDatabase.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            // PDF s=new PDF(lectuer);
+                            // mDatabase = FirebaseDatabase.getInstance().getReference("users").child(userID);
+                            mDatabase.child("users").child(userID).child("booked").setValue(bookmarklist);
 
-
-                        // String lectuerid=dataSnapshot.getKey();
-
-                        // PDF s=new PDF(lectuer);
-                        // mDatabase = FirebaseDatabase.getInstance().getReference("users").child(userID);
-                        mDatabase.child("users").child(userID).child("booked").setValue(bookmarklist);
-
-                        // mDatabase.child("booked").push().setValue(s);
-                        Toast.makeText(context.getApplicationContext(), "You've booked in successfully", Toast.LENGTH_SHORT).show();
-                    }
-
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-}
+                            // mDatabase.child("booked").push().setValue(s);
+                           // Toast.makeText(context.getApplicationContext(), "You've booked in successfully", Toast.LENGTH_SHORT).show();
+                        }
 
 
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });*/
+                }
 
 
             }
         });
-
-
-
-
 
 
         return convertView;

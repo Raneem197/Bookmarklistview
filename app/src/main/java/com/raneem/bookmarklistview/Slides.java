@@ -15,11 +15,11 @@ public class Slides {
 
 
 
-    public Slides(String title, String fipath, int img, boolean isbooked) {
+    public Slides(String title, String fipath, int img) {
         this.title = title;
         this.fipath = fipath;
         this.img=img;
-        this.isbooked=isbooked;
+        this.isbooked=false;
     }
 
     //public String getBooked() {
